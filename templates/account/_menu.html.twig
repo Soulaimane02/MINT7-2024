@@ -1,0 +1,20 @@
+<head>
+    <link href="{{ asset('assets/css/custom.css')}}" rel="stylesheet">
+</head>
+
+<h1>Espace de {{ app.user.prenom }}</h1>
+
+<ul class="nav flex-column custom-bg">
+  <li class="nav-item">
+    <a class="nav-link" href="{{ path('app_account') }}">Mes commandes </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Mes adresses </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ path('app_edit_pwd') }}">Modifier mon Mot de Passe</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ path('app_logout') }}">Se Deconnecter</a>
+  </li>
+</ul>
