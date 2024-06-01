@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container my-5">
+    <h1 class="text-center mb-5">Récapitulatif du panier</h1>
+    
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5 class="card-title">Votre adresse de livraison</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ delivery_address.firstname }} {{ delivery_address.lastname }}</p>
+            <p class="card-text">{{ delivery_address.address }}</p>
+            <p class="card-text">{{ delivery_address.city }} - {{ delivery_address.contry }}</p>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5 class="card-title">Transporteur</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>Nom:</strong> {{ carrier.name }}</p>
+            <p class="card-text"><strong>Description:</strong> {{ carrier.description }}</p>
+            <p class="card-text"><strong>Total transporteur:</strong> {{ carrier.price | number_format(2, ',', ' ') }} €</p>
+        </div>
+    </div>
+
+    <div class="card text-center">
+        <div class="card-header">
+            <h5 class="card-title">Total commande</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>Total commande:</strong> {{ totalWt + carrier.price }} €</p>
+            <a href="{{path('app_payment', {'id_order' : order.id})}}" class="btn btn-success w-100 mt-3">Payez</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

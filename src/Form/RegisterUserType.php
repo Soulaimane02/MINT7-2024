@@ -87,7 +87,7 @@ class RegisterUserType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'label' => '<a href="conditions/utilisations">Accepter nos conditions d\'utilisation</a>',
+                'label' => '<a href="c/g/u">Accepter nos conditions d\'utilisation</a>',
                 'label_html' => true, // Permet d'interpréter le label comme du HTML
                 'constraints' => [
                     new IsTrue([

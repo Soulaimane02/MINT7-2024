@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facture</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .invoice-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            margin: 0;
+            padding: 10px 0;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        h2 {
+            font-size: 20px;
+            color: #333;
+        }
+        h3 {
+            font-size: 18px;
+            color: #666;
+        }
+        p {
+            margin: 0;
+            padding: 5px 0;
+        }
+        .section-title {
+            margin: 20px 0 10px;
+            padding: 10px 0;
+            border-bottom: 2px solid #333;
+        }
+        .invoice-details, .client-details, .delivery-details, .order-summary {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        .total {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <h1>Facture</h1>
+        <div class="invoice-details">
+            <h2>Commande N° {{ order.id }}</h2>
+            <p>Date: {{ order.createdAt|date('d/m/Y') }}</p>
+        </div>
+        <div class="client-details">
+            <h3 class="section-title">Client</h3>
+            <p>{{ order.user.nom }} {{ order.user.prenom }}</p>
+        </div>
+        <div class="delivery-details">
+            <h3 class="section-title">Adresse de livraison</h3>
+                <p>{{ order.delivery|raw }}</p>
+        </div>
+        <div class="order-details">
+            <h3 class="section-title">Détails de la commande</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Quantité</th>
+                        <th>Prix HT</th>
+                        <th>TVA</th>
+                        <th>Prix TTC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for orderDetail in order.orderDetails %}
+                        <tr>
+                            <td>{{ orderDetail.productName }}</td>
+                            <td>{{ orderDetail.productQuantity }}</td>
+                            <td>{{ orderDetail.productPrice }} €</td>
+                            <td>{{ orderDetail.productTva }} %</td>
+                            <td>{{ (orderDetail.productPrice * (1 + (orderDetail.productTva / 100)))|number_format(2, '.', ',') }} €</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="order-summary">
+            <h3 class="section-title">Résumé</h3>
+            <p>Frais de port: {{ order.carrierPrice }} €</p>
+            <p>Total TVA: {{ order.getTotalTva()|number_format(2, '.', ',') }} €</p>
+            <p class="total">Total TTC: {{ order.getTotalWt()|number_format(2, '.', ',') }} €</p>
+        </div>
+    </div>
+</body>
+</html>

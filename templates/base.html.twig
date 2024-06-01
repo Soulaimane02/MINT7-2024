@@ -1,5 +1,6 @@
 
-<!doctype html>
+
+
 <html lang="fr" data-bs-theme="auto">
 <head>
     <meta charset="utf-8">
@@ -32,15 +33,12 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ path('app_home')}}">Accueil</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
+                    {% for category in allCategories %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_category', { slug : category.slug }) }}">{{category.name}}</a>
+                        </li>
+                        
+                    {% endfor %}
                 </ul>
                 <div class="speed-menu">
                     {% if app.user %}
@@ -50,7 +48,9 @@
                     {% endif %}
                     
 
-                    <a href=""><i data-feather="shopping-cart"></i></a>
+                    <a href="{{ path('app_cart') }}"><i data-feather="shopping-cart"></i>
+                        <span class='badge text-bg-light'>{{ fullCartQuantity }}</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
 {% endblock %}
    <!-- Bas de page  -->
     <footer class="container">
-        <p>&copy;2024 MINT7 <a href="#">CGV</a> &middot; <a href="#">CGU</a></p>
+        <p>&copy;2024 MINT7 <a href="{{ path('app_c_g_v')}}">CGV</a> &middot; <a href="{{ path('app_c_g_u')}}">CGU</a></p>
     </footer>
 </main>
 

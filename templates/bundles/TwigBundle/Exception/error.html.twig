@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #ff6e7f, #bfe9ff);
+        }
+
+        .error-container {
+            text-align: center;
+            color: #fff;
+            padding: 2em;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .error-container h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
+        }
+
+        .error-container p {
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+        }
+
+        .error-container a {
+            display: inline-block;
+            padding: 0.7em 1.5em;
+            color: #fff;
+            background: #ff6e7f;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .error-container a:hover {
+            background: #ff4d61;
+        }
+    </style>
+
+    <div class="error-container">
+        <h1>Page introuvable</h1>
+        <p>La page que vous recherchez n'existe pas ou a été déplacée.</p>
+        <a href="{{ path('app_home') }}">Retour à l'accueil</a>
+    </div>
+{% endblock %}

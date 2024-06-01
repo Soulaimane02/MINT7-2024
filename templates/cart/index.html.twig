@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            background-color: #f0f0f0; /* Arrière-plan gris clair */
+        }
+        .cart-container {
+            margin-top: 2rem;
+        }
+        .cart-header, .cart-footer {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        .cart-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .cart-image {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .text-muted {
+            color: #6c757d !important;
+        }
+        .btn-checkout {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn-checkout:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container cart-container">
+        <h1>Mon Panier</h1>
+        <br>
+        
+        <div class="cart-header">
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8">
+                {% if cart is not empty %}
+                    {% for product in cart %}
+                        <div class="row cart-item">
+                            <div class="col-md-2">
+                                <img class="img-fluid cart-image" src="/uploads/{{ product.object.illustation }}">
+                            </div>
+                            <div class="col-md-6">
+                                <strong>{{ product.object.name }}</strong>
+                                <span class="d-block text-muted">Prix unitaire: {{ product.object.pricewt }} €</span>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <small>
+                                    <a href="{{ path('app_cart_decrease', { id: product.object.id }) }}">-</a>
+                                    <span class="badge text-bg-secondary">x{{ product.qty }}</span>
+                                    <a href="{{ path('app_cart_add', { id: product.object.id }) }}">+</a>
+                                </small>
+                            </div>
+                            <div class="col-md-2 text-right">
+                                <strong>{{ (product.qty * product.object.pricewt) }} €</strong>
+                            </div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                    <a href="{{ path('app_cart_remove')}}" class="small d-block mt-3">Vider le panier</a>
+                {% else %}
+                    <p>Votre panier est vide.</p>
+                {% endif %}
+            </div>
+            
+            <div class="col-md-4">
+                   <div class="cart-footer">
+                       <h4>Récapitulatif de votre panier</h4>
+                       {% if cart is not empty %}
+                           {% set total = 0 %}
+                           {% set totalProducts = 0 %}
+                           {% for product in cart %}
+                               {% set total = total + (product.qty * product.object.pricewt) %}
+                               {% set totalProducts = totalProducts + product.qty %}
+                           {% endfor %}
+                           <p> <strong>Prix Total T.T.C: {{ total }} €</strong></p>
+                           <p><strong>Total produit(s): </strong><strong>{{ totalProducts }}</strong></p>
+                           <a class="btn btn-success w-100 mt-3" href="{{path('app_order')}}">Commander</a>
+                       {% else %}
+                           <p>Aucun article dans le panier.</p>
+                       {% endif %}
+                   </div>
+                </div>
+
+        </div>
+    </div>
+{% endblock %}

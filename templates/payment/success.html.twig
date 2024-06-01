@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="text-center py-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h1 class="display-4 text-success mb-4">Merci pour votre commande !</h1>
+                <p class="lead">Nous apprécions votre confiance et nous espérons que vous apprécierez votre achat.</p>
+                <div class="my-4">
+                    <svg width="100" height="100" fill="currentColor" class="bi bi-check-circle-fill text-success" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 11.03a.75.75 0 0 0 1.08 0L13.53 6.5a.75.75 0 1 0-1.06-1.06L7.5 9.94 6.53 9a.75.75 0 0 0-1.06 1.06l1.5 1.5z"/>
+                    </svg>
+                </div>
+                <a href="{{ path('app_home') }}" class="btn btn-primary btn-lg mt-3">Retour à l'accueil</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+    .container {
+        max-width: 600px;
+    }
+    .card {
+        border-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+</style>
+{% endblock %}

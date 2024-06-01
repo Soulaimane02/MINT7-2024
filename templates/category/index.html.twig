@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        body {
+            background-color: #f3f3f3; 
+        }
+
+        .card-img-top {
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .card {
+            transition: transform 0.3s ease;
+            border: none;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+        }
+
+        .card-text {
+            color: #666;
+        }
+
+        .card-link {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .card-link:hover {
+            color: #0056b3;
+        }
+    </style>
+
+    <div class="container my-5">
+        <h1 class="text-center">{{ category.name }}</h1>
+        <p class="text-center">Cette catégorie contient {{ category.products|length }} produit(s)</p>
+        <div class="row">
+            {% for product in category.products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow">
+                        <img src="/uploads/{{ product.illustation }}" class="card-img-top" alt="{{ product.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ product.name }}</h5>
+                            <p class="card-text text-center">{{ product.priceWt }} € T.T.C (Toutes Taxes Comprises)</p>
+                            <a href="{{ path('app_product', {slug: product.slug}) }}" class="card-link stretched-link">Voir le produit</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

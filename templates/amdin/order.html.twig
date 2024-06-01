@@ -1,0 +1,51 @@
+{% extends "@!EasyAdmin/layout.html.twig" %}
+
+{% block main %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Récapitulatif de la commande n°{{ order.id }}</h1>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Informations sur la commande
+            </div>
+            <div class="card-body">
+                <p><strong>Date de création:</strong> {{ order.createdAt|date('d/m/Y H:i:s') }}</p>
+                <p><strong>Transporteur:</strong> {{ order.carrierName }}</p>
+                <p><strong>Frais de livraison:</strong> {{ order.carrierPrice }} €</p>
+                <p><strong>Stripe Session Id:</strong> {{ order.stripeSessionId }}</p>
+                <p><strong>Adresse de livraison:</strong><br>{{ order.delivery|raw }}</p>
+                <p><strong>Statut de la commande:</strong> {{ order.state }}</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                Détails de la commande
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Prix unitaire</th>
+                                <th>Quantité</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for orderDetail in order.orderDetails %}
+                                <tr>
+                                    <td>{{ orderDetail.productName }}</td>
+                                    <td>{{ orderDetail.productPrice }} €</td>
+                                    <td>{{ orderDetail.productQuantity }}</td>
+                                    <td>{{ orderDetail.productPrice * orderDetail.productQuantity }} €</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

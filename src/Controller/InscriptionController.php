@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Entity\User;
 use App\Form\RegisterUserType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,6 +31,8 @@ class InscriptionController extends AbstractController
                     'Votre compte à bien été créé ! '
 
             );
+            $mail = new Mail;
+            $mail->send($user->getEmail(),$user->getPrenom(), 'Bienvenue sur MINT7 vos futurs achats vous rapporteront beaucoup bientot ! ', "welcome.html");
             return $this->redirectToRoute('app_connexion');
         }
 
